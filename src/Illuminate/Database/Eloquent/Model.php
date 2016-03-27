@@ -3177,6 +3177,15 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         return is_numeric($current) && is_numeric($original) && strcmp((string) $current, (string) $original) === 0;
     }
 
+    public function associateWith($relations)
+    {
+        foreach ($relations as $relation => $model) {
+            $this->$relation()->associate($model);
+        }
+
+        return $this;
+    }
+
     /**
      * Get all the loaded relations for the instance.
      *
